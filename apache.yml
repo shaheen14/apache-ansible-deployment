@@ -1,0 +1,19 @@
+---
+- name: Install and configure Apache Web Server
+  hosts: webservers
+  become: yes
+
+  tasks:
+    - name: Install Apache
+      dnf:
+        name: httpd
+        state: present
+    - name: Start and enable Apache
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+    - name: Create a basic homepage
+      copy:
+        dest: /var/www/html/index.html
+        content: "<h1>HELLO from Ansible on RHEL 9!</h1>"      
